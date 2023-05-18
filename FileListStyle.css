@@ -1,0 +1,222 @@
+*
+{
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+@media screen and (min-width: 200px) {
+    /* CSS rules for screens with a minimum width of 600px */
+  }
+body
+{
+    height: 100vh;
+    /* max-height: 100%; */
+    background-color: rgb(57, 57, 57);
+    display: flex;
+    flex-direction: column;
+    min-width: 1080px;
+}
+div.TopBar
+{
+    display: flex;
+}
+/* BEGINNING OF TOP BAR */
+div.TopBar *
+{
+    background-color: grey;
+    border-bottom: 0;
+
+}
+div.LeftSection,div.RightSection
+{
+    padding: 20px 0px 10px 0px;
+    min-height: 50px;
+    background-color: grey;
+}
+
+div.LeftSection
+{
+
+    /* height: 80px; */
+    /* height: 11vh; */
+    width: 15%;
+    border-right: 0;
+
+}
+div.RightSection
+{
+    width: 85%;
+    border-left: 0;
+
+    /* height: 80px; */
+}
+div.RightSection *
+{
+    border: 0;
+    padding: 0;
+}
+/* SEARCH BAR */
+div.RightSection form
+{
+    /* padding: 5px 0px; */
+    width: 40%;
+    min-width: 325px;
+    border: 1px solid black;
+    /* margin: 0; */
+    border-radius: 50px;
+    padding: 5px 5px;
+    /* padding: 0px 4px; */
+    background: rgba(255, 255, 255, .2);
+    display: flex;
+    align-items: center;
+}
+div.RightSection form label
+{
+    background: transparent;
+    font-size: 20px;
+
+}
+
+div.RightSection form input
+{
+    background: transparent;
+    flex: 1;
+    font-size: 20px;
+    border: 0;
+    outline: none;
+
+}
+div.RightSection form input::placeholder
+{
+    color: rgba(0, 0, 0, 0.5);
+}
+div.RightSection form button
+{
+    background: #414040;
+    color: white;
+    height: 45px;
+    width: 45px;
+    min-width: 45px;
+    border-radius: 50%;
+
+}
+div.RightSection form button img
+{
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+}
+/* END SEARCH BAR */
+
+
+/* END OF TOP BAR */
+/* MAIN BODY */
+div.MainBody
+{
+    display: flex;
+    flex: 1;
+    min-height: 500px;
+}
+div.LeftBar
+{
+    background-color: rgb(213, 212, 212);
+    width: 15%;
+    /* border-right: 0; */
+}
+div.LeftBar button
+{
+    border-left: 0;
+    border-right: 0;
+    width: 100%;
+    height: 10%;
+    /* min-height: 62px; */
+}
+div.LeftBar button.SearchButton
+{
+    border-top: 0;
+}
+div.LeftBar button:hover
+{
+    /* border-top: 0; */
+    border-left: 0;
+    border-right: 0;
+    background-color: rgb(76, 76, 76);
+    color: white;
+    transition: .4s;
+    border: 1px solid black;
+    cursor: pointer;
+}
+div.Rightbody
+{
+    background-color: rgb(171, 171, 171);
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.whitebox
+{
+    border: 2px solid black;
+    width: 95%;
+    max-height: 95%;
+    height: 95%;
+    min-width: 900px;
+    border-radius: 15px;
+    background: white;
+
+}
+div.greybox
+{
+    border: 2px solid black;
+    width: 95%;
+    max-height: 95%;
+    height: 95%;
+    min-width: 900px;
+    border-radius: 15px;
+    background: white;
+
+}
+div.whitebox ul
+{
+    /* Adds  a vertical scroll bar */
+    overflow-y: scroll;
+    /* Limits the height of the paragraph section so the page length wont increase */
+    max-height: 600px;
+    /* min-width: 300px; */
+    height: 95%;
+    padding: 0px 10px;
+    border: 0;
+    /* border-top: 1px solid black; */
+
+}
+div.whitebox ul li
+{
+    height: 60px;
+    /* min-height: 80px; */
+    width: 99%;
+    display: flex;
+    
+    align-items: center;
+    list-style-type: none;
+    
+    /* overflow-x:scroll ; */
+}
+
+  
+ 
+div.whitebox ul li img
+{
+    border: 0;
+    height: 30px;
+
+}
+div.whitebox ul li a{
+    border: none;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    color: black;
+    font-size: 150%;
+    width: 90%;
+    
+    /* text-decoration: none; */
+}

@@ -1,0 +1,167 @@
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <title>
+            GuidesForYou
+            
+        </title>
+        <link rel="stylesheet" href="FileListStyle.css">
+        <style>
+            body{
+                background-color: black;
+            }
+            .lds-ring {
+                border: none;
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            }
+            .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border: 8px solid #fff;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #b4b4b4 transparent transparent transparent;
+            }
+            .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+            }
+            .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+            }
+            .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+            }
+            @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <div class="TopBar" id="TopBar">
+            <div class="LeftSection" id="LeftSection">
+
+            </div>
+            <div class="RightSection" id="RightSection">
+                <form action="SearchBar">
+                    <label for="CSCI">CSCI: </label>
+                    <input action="" type="text" placeholder="Course Number" id="courseNumberInputField">
+                    <!-- Remember to change the button type to "submit" in order to actually submit the contents sof the seach bar  -->
+                    <button type="button" id="courseNumberInputFieldButton" onclick="submitionPopUp()"><img src="search.png"></button>
+                </form>
+            </div>
+
+        </div>
+        <div class="MainBody" id="MainBody">
+            <div class="LeftBar" id="LeftBar">
+                <button type="button" class="SearchButton" onclick="SearchMainPage()">Search</button>
+                <button type="button" class="UploadButton" onclick="UploadFilePage()">Upload</button>
+                <button class="UploadButton" onclick="goToAboutPage()" >About</button>
+
+
+            </div>
+            <div class="RightBody" id="RightBody">
+                <!-- <form action=""></form> -->
+                <div id="whitebox" class="whitebox">
+                        <ul id="DisplayList">
+
+                        </ul>
+                </div>
+               <!-- <div class="greybox"> <div id="lds-ring" class="lds-ring"><div></div><div></div><div></div><div></div></div></div> -->
+
+
+
+            </div>
+
+        </div>
+        
+    </body>
+</html>
+<script>
+    // var whitebox = document.getElementById("whitebox");
+    // whitebox.style.display = "none";
+
+    var input = document.getElementById("courseNumberInputField");
+    input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("courseNumberInputFieldButton").click();
+        }
+    });
+
+    function submitionPopUp() {
+        localStorage.setItem('numberOfLists', document.getElementById("courseNumberInputField").value);
+        localStorage.setItem('courseNUmber', document.getElementById("courseNumberInputField").value);
+        alert("The Course Number you put in is CSCI: " + document.getElementById("courseNumberInputField").value);
+        window.location.href = "FileList.html";
+    }
+
+    function SearchMainPage() {
+        window.location.href = "index.html";
+    }
+
+    function goToAboutPage() {
+        window.location.href = "AboutPage.html";
+    }
+
+    function UploadFilePage() {
+        window.location.href = "UploadFile.html";
+    }
+
+    var callAPI = (courseNumber) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json")
+        const raw = JSON.stringify({ "BucketName": courseNumber });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow',
+        };
+
+        return fetch("https://xlk073jc13.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
+            .then(response => response.json()) // Parse the JSON here
+            .then(result => result.body) // Return the parsed JSON directly
+            .catch(error => console.log('error', error));
+    };
+
+    var decoded;
+    callAPI(localStorage.getItem('courseNUmber'))
+        .then(data => {
+            decoded = JSON.parse(data); // store the parsed JSON in the `decoded` variable
+            console.log(decoded);
+            setUpList(decoded.urls)
+
+        })
+        .catch(error => console.log('error', error));
+
+
+    function setUpList(objects) {
+        for (var key in objects) {
+            var List = document.getElementById("DisplayList");
+            var listItem = document.createElement("li");  // create a new list item element
+            var link = document.createElement("a");  // create a new anchor element
+            link.href = objects[key];  // set the href attribute to the desired link URL
+            link.target = "_blank";  // set the target attribute to "_blank" to open the link in a new tab
+            link.innerHTML = "<img src='document-icon-19.png'>" + key;  // set the link text and image
+            listItem.appendChild(link);  // add the link to the list item
+            List.appendChild(listItem);  // add the list item to the unordered list
+        }
+    }
+</script>
+

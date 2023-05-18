@@ -1,0 +1,263 @@
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <title>
+          GuidesForYou
+        </title>
+       <link rel="stylesheet" href="UploadFile.css">
+    </head>
+
+    <body>
+        <div class="TopBar" id="TopBar">
+            <div class="LeftSection" id="LeftSection">
+
+            </div>
+            <div class="RightSection" id="RightSection">
+              <form >
+                  <label for="CSCI">CSCI: </label>
+                  <input class="courseNumberInputField" type="text" placeholder="Course Number" id="courseNumberInputField">
+                  <!-- <input class="courseNumberInputField" type="text" placeholder="Course Number" id="courseNumberInputField"> -->
+
+                  <!-- Remember to change the button type to "submit" in order to actually submit the contents sof the seach bar  -->
+                  <button type="button" id="courseNumberInputFieldButton" onclick="submitionPopUp()"><img src="search.png"></button>
+              </form>
+          </div>
+
+        </div>
+        <div class="MainBody" id="MainBody">
+            <div class="LeftBar" id="LeftBar">
+                <button type="button" class="SearchButton" onclick="SearchMainPage()">Search</button>
+                <button type="button" class="UploadButton" onclick="UploadFilePage()">Upload</button>
+                <button class="UploadButton" onclick="goToAboutPage()">About</button>
+
+<!-- <img src="" alt=""> -->
+            </div>
+            <div class="RightBody" id="RightBody">
+                <!-- <form action=""></form> -->
+                <div class="whitebox">
+                    <div class="dropdown">
+                        <button id="dropbtn" onclick="myFunction()" class="dropbtn">Select Course</button>
+                        <div id="myDropdown" class="dropdown-content">
+                          <input type="text" placeholder="Search..." id="myInput" onkeyup="filterFunction()">
+                            <a  onclick="selectCourse('127')">127</a>
+                            <a  onclick="selectCourse('135')">135</a>
+                            <a  onclick="selectCourse('150')">150</a>
+                            <a  onclick="selectCourse('160')">160</a>
+                            <a  onclick="selectCourse('235')">235</a>
+                            <a  onclick="selectCourse('260')">260</a>
+                            <a  onclick="selectCourse('265')">265</a>
+                            <a  onclick="selectCourse('335')">335</a>
+                            <a  onclick="selectCourse('340')">340</a>
+                        </div>
+                        
+                      </div>
+                    
+                        <form method="POST" class="fromclass" id="fromclass" enctype="multipart/form-data">
+                            <div>
+                                <label for="file_uploads">Choose a PDF to upload Max Size 5MB</label>
+                                <input type="file"  id="file_uploads" name="file_uploads" accept=".pdf"/>
+                              </div>
+                              <div class="preview">
+                                <p id="DisplayFileName">No files currently selected for upload</p>
+                              </div>
+                              <div>
+                                <button type= "button" id="submitButton" onclick="callAPI()">Submit</button>
+                              </div>
+                          </form>
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+        
+    </body>
+</html>
+
+<script>
+    // document.getElementById("myDropdown").style.display = "none";
+    var selectedCourse = ""
+    function SearchMainPage()
+    {
+        myDropdown.classList.remove('show');
+        window.location.href = "index.html";
+    }
+    function goToAboutPage()
+    {
+        myDropdown.classList.remove('show');
+        window.location.href = "AboutPage.html";
+    }
+    function UploadFilePage()
+    {
+        myDropdown.classList.remove('show');
+        window.location.href = "UploadFile.html";
+    }
+    
+
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+function selectCourse(course)
+{
+    
+    document.getElementById("dropbtn").innerHTML  = course
+    selectedCourse = course
+    console.log(selectedCourse)
+    // document.getElementById("submitButton").style.display = "block"
+}
+function updateImageDisplay() {
+  while(preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
+
+  const curFiles = input.files;
+  if (curFiles.length === 0) {
+    const para = document.createElement('p');
+    para.textContent = 'No files currently selected for upload';
+    preview.appendChild(para);
+  } else {
+    const list = document.createElement('ol');
+    preview.appendChild(list);
+
+    for (const file of curFiles) {
+      const listItem = document.createElement('li');
+      const para = document.createElement('p');
+      if (validFileType(file)) {
+        para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+        const image = document.createElement('img');
+        image.src = URL.createObjectURL(file);
+
+        listItem.appendChild(image);
+        listItem.appendChild(para);
+      } else {
+        para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+        listItem.appendChild(para);
+      }
+
+      list.appendChild(listItem);
+    }
+  }
+}
+const input = document.querySelector('input');
+const preview = document.querySelector('.preview');
+
+input.style.opacity = 0;
+input.addEventListener('change', updateImageDisplay);
+document.getElementById('file_uploads').onchange = function () {
+  document.getElementById('DisplayFileName').innerHTML = document.getElementById('file_uploads').files[0].name;
+
+};
+
+function myFunction() {
+  var dropbtn = document.getElementById('dropbtn');
+  var myDropdown = document.getElementById('myDropdown');
+  if (myDropdown.classList.contains('show')) {
+    myDropdown.classList.remove('show');
+  } else {
+    myDropdown.classList.add('show');
+  }
+  document.addEventListener('click', function(event) {
+    if (event.target !== dropbtn && !dropbtn.contains(event.target) && event.target !== myInput) {
+      myDropdown.classList.remove('show');
+    }
+  });
+}
+function submitionPopUp()
+  {
+    localStorage.setItem('numberOfLists',document.getElementById("courseNumberInputField").value);
+    localStorage.setItem('courseNUmber',document.getElementById("courseNumberInputField").value);
+    // alert("The Course Number you put in is CSCI: "+document.getElementById("courseNumberInputField").value);
+    window.location.href="FileList.html";
+  }
+
+  var callAPI = async (courseNumber) => {
+  var fileInput = document.getElementById("file_uploads");
+  if (fileInput.files.length === 0 || selectedCourse === "") {
+    alert("Please select a file and a course before submitting.");
+    return;
+  } else {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const fileInput = document.getElementById("file_uploads");
+    const file = fileInput.files[0];
+    const fileName = file.name;
+    const BucketName = "hunter-csci-" + selectedCourse;
+
+    const encodedString = await convertToBase64();
+    const sizeInBytes = new Blob([encodedString]).size;
+    const sizeInMB = sizeInBytes / (1024 * 1024);
+    console.log(sizeInMB);
+    if(sizeInBytes >4.8)
+    {
+      alert("File Size is Too Big to Upload")
+    }
+    else{
+      const raw = JSON.stringify({
+      bucket_name: BucketName,
+      file_name: fileName,
+      body: encodedString,
+    });
+    console.log(raw);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    return fetch(
+      "https://jn433k4yv2.execute-api.us-east-1.amazonaws.com/dev",
+      requestOptions
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          alert("File Was Successfully  Uploaded");
+        } else {
+          alert("File Was Not Successfully  Uploaded");
+        }
+        return response.json();
+      })
+      .then((result) => console.log(result)) // Return the parsed JSON directly
+      .catch((error) => console.log("error", error));
+  }
+    }
+};
+
+function convertToBase64() {
+  return new Promise((resolve, reject) => {
+    const fileInput = document.getElementById("file_uploads");
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      const base64String = reader.result.split(",").pop();
+      resolve(base64String);
+    };
+    reader.onerror = function (error) {
+      reject(error);
+    };
+  });
+}
+document.getElementById("courseNumberInputField").style.opacity = 100
+
+  // document.getElementById("submitButton").style.display = "none"
+
+
+
+</script>

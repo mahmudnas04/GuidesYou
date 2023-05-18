@@ -1,0 +1,75 @@
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <title>
+            GuidesForYou
+        </title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+
+    <body>
+        <div class="TopBar" id="TopBar">
+            <div class="LeftSection" id="LeftSection">
+
+            </div>
+            <div class="RightSection" id="RightSection">
+
+            </div>
+
+        </div>
+        <div class="MainBody" id="MainBody">
+            <div class="LeftBar" id="LeftBar">
+                <button type="button" class="SearchButton" onclick="SearchMainPage()">Search</button>
+                <button class="UploadButton" onclick="UploadFilePage()">Upload</button>
+                <button class="UploadButton" onclick="goToAboutPage()" id="AboutPageButton">About</button>
+
+
+            </div>
+            <div class="RightBody" id="RightBody">
+                <div class="GreyBox">
+                    <form >
+                        <label for="CSCI">CSCI: </label>
+                        <input action="" type="text" placeholder="Course Number" id="courseNumberInputField">
+                        <!-- Remember to change the button type to "submit" in order to actually submit the contents sof the seach bar  -->
+                        <button type="button" id="courseNumberInputFieldButton"onclick="submitionPopUp()"><img src="search.png"></button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        
+    </body>
+</html>
+<script>
+     localStorage.setItem('courseNUmber',null);
+     console.log(localStorage.getItem('courseNUmber'));
+var input = document.getElementById("courseNumberInputField");
+input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("courseNumberInputFieldButton").click();
+  }
+});
+function submitionPopUp(){
+
+    localStorage.setItem('numberOfLists',document.getElementById("courseNumberInputField").value);
+    localStorage.setItem('courseNUmber',document.getElementById("courseNumberInputField").value);
+    // alert("The Course Number you put in is CSCI: "+document.getElementById("courseNumberInputField").value);
+    window.location.href="FileList.html";
+   
+    
+}
+function SearchMainPage()
+{
+    window.location.href = "index.html";
+}
+function goToAboutPage()
+{
+    window.location.href = "AboutPage.html";
+}
+function UploadFilePage()
+{
+    window.location.href = "UploadFile.html";
+}
+
+</script>
