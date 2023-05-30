@@ -9,6 +9,9 @@ Link: https://dev.d1dprgfjb1b3qf.amplifyapp.com/index.html
 
 ## Video Walkthrough
 Here is a video walkthrough of the website's functionality:
+
+![GuidesYouWalkThrough](https://github.com/mahmudnas04/GuidesYou/assets/93147757/49397438-ca08-4066-95f5-946f2f704d5c)
+
 ## Tools
 
 - **AWS S3** for storing data into specified buckets using the course title
